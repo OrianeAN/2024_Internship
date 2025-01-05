@@ -7,8 +7,18 @@ from scipy.optimize import leastsq
 import matplotlib.pyplot as plt
 from scipy.fft import fft2, ifft2, fftfreq
 
+"""
+Crétion d'un plan incliné en découpant et réarrangeant l'image d'intensité.
+Soustraction du plan par la méthode des barycentres.
+ATTENTION maintenant la fonction centroid renvoie une liste et non un couple !!
+
+Création d'un plan incliné dans l'image
+soustraction du plan incliné dans l'intensité
+"""
+
 #%% Fonction de base et input
 # Fonction pour enlever le background de l'image. Utilise la méthode du coin.
+# Return l'image sans le background
 def remove_bkg(im, rel_frame_width):
     """
     im : 2D np array with image data
@@ -53,11 +63,11 @@ def propag(u1, dz, nuX, nuY, la):
     return u2
 
 ## importation des photos
-file_name_1 = "z0.000_I.tif"  # should contain info on z-position in meters
-file_name_2 = "z0.150_I.tif"  # should contain info on z-position in meters
-file_name_3 = "z0.310_I.tif"  # should contain info on z-position in meters
-file_name_4 = "z0.400_I.tif"  # should contain info on z-position in meters
-file_name_0 = "z0.000_phi.png"  # the known phase used at for the generation of the images
+file_name_1 = r"input_images\foc lent ideale\z0.000_I.tif"  # should contain info on z-position in meters
+file_name_2 = r"input_images\foc lent ideale\z0.150_I.tif"  # should contain info on z-position in meters
+file_name_3 = r"input_images\foc lent ideale\z0.310_I.tif"  # should contain info on z-position in meters
+file_name_4 = r"input_images\foc lent ideale\z0.400_I.tif"  # should contain info on z-position in meters
+file_name_0 = r"input_images\foc lent ideale\z0.000_phi.png"  # the known phase used at for the generation of the images
 
 list_file = [file_name_1, file_name_2, file_name_3, file_name_4]
 nb_im = 4
@@ -107,13 +117,13 @@ for i in range(nb_im):
     list_I += [list_im[i] / list_im[i].sum()]
     list_coord_c += [centroid_position(list_im[i])]
     list_z += [list_file[i].split('.tif')[0]]
-    list_z[i] = float(list_z[i][1:-2])
+    list_z[i] = float(list_z[i][-7:-2])
     if i != 0:
         list_dz += [list_z[i] - list_z[0]]
 
 for i in range(nb_im):
     print(f"im{i+1} energy = {list_I[i].sum()}")
-    print(f"coordonnées centre im{i+1} xc = {i+1} {list_coord_c[i][0]}, yc = {list_coord_c[i][1]}")
+    print(f"coordonnées centre im{i+1} xc = {list_coord_c[i][0]}, yc = {list_coord_c[i][1]}")
     print(f"z im{i+1} {list_z[i] = }")    
     if i != 0:
         print(f"distance im1 et im{i+1} {list_dz[i-1] } m")
@@ -250,11 +260,11 @@ if success2D not in [1, 2, 3, 4]:  # If success is equal to 1, 2, 3 or 4, the so
 else:
     print(fpars)
     print(f" Nombre d'itération : {infodict['nfev']}")
-
+"""
 mod_p = (mod_phase(fpars, X, Y)- mod_phase(fpars, X, Y)[256, 256])
 phase_milieu = np.angle(np.exp(1j * mod_p))[256]
 plt.plot(phase_milieu)
-
+"""
 # %%Compare graphiquement la phase à la lentille
 ## compare result to input used for simulation of I2_image
 phi1_im = iio.imread(file_name_0)
@@ -269,7 +279,7 @@ cax = ax[0].imshow(phi1_im, cmap='twilight',
 fig.colorbar(cax, ax=ax[0])
 
 #ax[1].set_title(f'result of fit from im{im_et[0]} and im{im_et[1]}')
-ax[1].set_title(f'Phase recovered using intenisty image \nbefore and after the focale point')
+ax[1].set_title(f'Phase recovered using two intenisty image')
 if mod_phase == phase_5p:
     center_x = fpars[-2]
     center_y = fpars[-1]
@@ -321,10 +331,10 @@ fig.tight_layout()
 
 # %% Afficher qi² cas à 2 paramètres
 """
-Prends 1 min à calculer Qi² 
-Construit pour le faire pour l'image 2 et 4, Attention vérifier plus haut que 
-ça correspond
-utilisation d'une normalisation logarithmique pour l'léchelle des couleurs.
+Take 1 min to calculate Qi 2 
+Built to do for image 2 and 4, Attention check above that 
+this corresponds
+Use of logarithmic normalization for the color scale.
 """
 """
 x_qi = np.linspace(-15*1e2,10*1e2,20) #paramètres a dans : a*er + b*er**2
