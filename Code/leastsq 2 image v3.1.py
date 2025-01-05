@@ -7,18 +7,8 @@ from scipy.optimize import leastsq
 import matplotlib.pyplot as plt
 from scipy.fft import fft2, ifft2, fftfreq
 
-"""
-Crétion d'un plan incliné en découpant et réarrangeant l'image d'intensité.
-Soustraction du plan par la méthode des barycentres.
-ATTENTION maintenant la fonction centroid renvoie une liste et non un couple !!
-
-Création d'un plan incliné dans l'image
-soustraction du plan incliné dans l'intensité
-"""
-
 #%% Fonction de base et input
 # Fonction pour enlever le background de l'image. Utilise la méthode du coin.
-# Return l'image sans le background
 def remove_bkg(im, rel_frame_width):
     """
     im : 2D np array with image data
