@@ -1,0 +1,12 @@
+Dans le répertoire: 
+
+C:\_DATA\RECHERCHE\Experimental data\z_images faisceau\_Quantel Q-smart\2018 03 22 qsm f750 IR 10Hz salle100Hz
+
+Les positions -10 et +5 sont assez différentes, mais il faut extraire les fichier tif des wcf sauvés. Prendre des sans trop de bruit de fond.  
+
+Le background est fait sur une zone en bas à droite. 
+ul=(391; 246), rl=(501; 500)
+On voit le depointage.
+
+
+ 
