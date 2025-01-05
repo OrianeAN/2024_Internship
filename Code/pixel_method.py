@@ -178,10 +178,13 @@ def plot_full_image(phi1_im, phase_type, delta_z, dimensions, u_retrieved, compu
         plt.savefig(os. path.join(directory, f'full_image_{phase_type}.png'))
     else:
         plt.show()
-    
-    plt.figure('3')
-    plt.plot(u_retrieved_phase[256])
 
+    """
+    plt.figure('3')
+    plt.suptitle('Cut of the phase')
+    plt.plot(u_retrieved_phase[256])
+    """
+    
     list_result.append(u_retrieved_phase)
 
 def propagate_transfer_function_fresnel(origin_field, H):
