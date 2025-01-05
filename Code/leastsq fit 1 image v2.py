@@ -5,9 +5,8 @@ from scipy.optimize import leastsq
 import matplotlib.pyplot as plt
 from scipy.fft import fft2, ifft2, fftfreq
 
-#%% Fonction de base et input
-# Fonction pour enlever le background de l'image. Utilise le cadre de l'image.
-# Return l'image sans le background
+#%% input
+# Function to remove the background of the image. Use the frame of the image.
 def remove_bkg(im, rel_frame_width):
     """
     im : 2D np array with image data
@@ -52,11 +51,11 @@ def propag(u1, dz, nuX, nuY, la):
     return u2
 
 ## importation des photos
-file_name_1 = "z0.000_I.tif"  # should contain info on z-position in meters
-file_name_2 = "z0.150_I.tif"  # should contain info on z-position in meters
-file_name_3 = "z0.310_I.tif"  # should contain info on z-position in meters
-file_name_4 = "z0.400_I.tif"  # should contain info on z-position in meters
-file_name_0 = "z0.000_phi.png"  # the known phase used at for the generation of the images
+file_name_1 = r"input_images\foc lent ideale\z0.000_I.tif"  # should contain info on z-position in meters
+file_name_2 = r"input_images\foc lent ideale\z0.150_I.tif"  # should contain info on z-position in meters
+file_name_3 = r"input_images\foc lent ideale\z0.310_I.tif"  # should contain info on z-position in meters
+file_name_4 = r"input_images\foc lent ideale\z0.400_I.tif"  # should contain info on z-position in meters
+file_name_0 = r"input_images\foc lent ideale\z0.000_phi.png"  # the known phase used at for the generation of the images
 
 list_file = [file_name_1, file_name_2, file_name_3, file_name_4]
 nb_im = len(list_file)
